@@ -26,7 +26,14 @@ public class MailClient
      */
     public MailItem getNextMailItem()
     {
-        return server.getNextMailItem(user);
+        MailItem item = server.getNextMailItem(user);
+        if(item == null) {
+            System.out.println("No new mail.");
+        }
+        else if(item.getMessage().contains("regalo") || item.getMessage().contains("viagra")){
+            item = null;
+        }
+        return item;
     }
 
     /**
@@ -39,6 +46,10 @@ public class MailClient
         if(item == null) {
             System.out.println("No new mail.");
         }
+        else if(item.getMessage().contains("regalo") || item.getMessage().contains("viagra")){
+                System.out.println("Has recibido Spam");
+            }
+        
         else {
             item.print();
         }
